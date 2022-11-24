@@ -1,0 +1,173 @@
+﻿@model MyECommerceWebSite2022.ModelsView.GroupsViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("UpdateGroupTitle");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+<script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+
+<h4>@_localizer.GetLocalizedHtmlString("UpdateGroupTitle")</h4>
+<hr />
+@*<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="GroupNameAr" class="control-label"></label>
+                <input asp-for="GroupNameAr" class="form-control" />
+                <span asp-validation-for="GroupNameAr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupNameEn" class="control-label"></label>
+                <input asp-for="GroupNameEn" class="form-control" />
+                <span asp-validation-for="GroupNameEn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsMainGroup" class="control-label"></label>
+                <input id="IsMainGroupcheckbox" asp-for="IsMainGroup" class="checkbox" />
+                <span asp-validation-for="IsMainGroup" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="mainGroupId" class="control-label"></label>
+                <select id="mainGroupIdselect" asp-for="mainGroupId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.mainGroups,"id","GroupNameAr"))"></select>
+                <span asp-validation-for="mainGroupId" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <label asp-for="itemImage" class="control-label"></label>
+                    <input type="file" name="itemImage" asp-for="itemImage" class="form-control" id="imgInp" />
+                    <span asp-validation-for="itemImage" class="text-danger"></span>
+                </div>
+                <div class="col-2">
+                    <img id="blah" src="~/GroupImages/@Model.GroupImgFile" style="height: 60px; width: 60px;" class="img-thumbnail" />
+                </div>
+            </div>
+            <div class="form-group pt-2">
+                <input type="submit" value="@_localizer.GetLocalizedHtmlString("Create")" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+
+            </div>
+        </form>
+    </div>
+</div>*@
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="IsMainGroup" class="control-label"></label>
+                        <input id="IsMainGroupcheckbox" asp-for="IsMainGroup" class="checkbox" />
+                        <span asp-validation-for="IsMainGroup" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="GroupNameAr" class="control-label"></label>
+                        <input asp-for="GroupNameAr" class="form-control" />
+                        <span asp-validation-for="GroupNameAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="GroupNameEn" class="control-label"></label>
+                        <input asp-for="GroupNameEn" class="form-control" />
+                        <span asp-validation-for="GroupNameEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="mainGroupId" class="control-label"></label>
+                        <select id="mainGroupIdselect" asp-for="mainGroupId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.mainGroups,"id","GroupNameAr"))"></select>
+                        <span asp-validation-for="mainGroupId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="itemImage" class="control-label"></label>
+                        <input type="file" name="itemImage" asp-for="itemImage" class="form-control" id="imgInp" />
+                        <span asp-validation-for="itemImage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <img id="blah" src="~/GroupImages/@Model.GroupImgFile" style="height: 60px; width: 60px;" class="img-thumbnail" />
+                </div>
+            </div>
+
+            <div class="form-group d-none">
+                <label asp-for="GroupImgFile" class="control-label"></label>
+                <input asp-for="GroupImgFile" class="form-control" />
+                <span asp-validation-for="GroupImgFile" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <input type="submit" value="@_localizer.GetLocalizedHtmlString("Create")" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function () {
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+
+
+        $("#IsMainGroupcheckbox").change(function () {
+            if (this.checked) {
+                $("#mainGroupIdselect").val(0);
+                $("#mainGroupIdselect").prop("disabled", true);
+
+
+            } else {
+                $("#mainGroupIdselect").prop("disabled", false);
+
+            }
+        });
+
+    });
+
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,165 @@
+﻿@model MyECommerceWebSite2022.ModelsView.ItemsViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("CreateitemTitle");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+<script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+<h4>@_localizer.GetLocalizedHtmlString("CreateitemTitle")</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="itemNameAr" class="control-label"></label>
+                        <input asp-for="itemNameAr" class="form-control" />
+                        <span asp-validation-for="itemNameAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="itemNameEn" class="control-label"></label>
+                        <input asp-for="itemNameEn" class="form-control" />
+                        <span asp-validation-for="itemNameEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="itemDescreptionAr" class="control-label"></label>
+                        <input asp-for="itemDescreptionAr" class="form-control" />
+                        <span asp-validation-for="itemDescreptionAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="itemDescreptionEn" class="control-label"></label>
+                        <input asp-for="itemDescreptionEn" class="form-control" />
+                        <span asp-validation-for="itemDescreptionEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="groupId" class="control-label"></label>
+                        <select id="mainGroupSelectid" asp-for="groupId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Groups,"id","GroupNameAr",0))"></select>
+                        <span asp-validation-for="groupId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="unitId" class="control-label"></label>
+                        <select asp-for="unitId" class="form-control form-select" asp-items="@(new SelectList(ViewBag.Units,"id","UnitNameAr"))"></select>
+                        <span asp-validation-for="unitId" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="price" class="control-label"></label>
+                        <input asp-for="price" class="form-control" />
+                        <span asp-validation-for="price" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="quantity" class="control-label"></label>
+                        <input asp-for="quantity" class="form-control" />
+                        <span asp-validation-for="quantity" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div id="mainGroupIdselect" class="form-group">
+                        <label asp-for="subGroupId" class="control-label"></label>
+                        <select id="subGroupSelectid" class="form-control form-select" asp-for="subGroupId" asp-items="@(new SelectList(ViewBag.subGroupId,"id","GroupNameAr"))"></select>
+                        <span asp-validation-for="subGroupId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6 pt-4">
+                    <label asp-for="specialItem" class="control-label"></label>
+                    <input asp-for="specialItem" class="checkbox" />
+                    <span asp-validation-for="specialItem" class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label asp-for="itemImage" class="control-label"></label>
+                    <input type="file" name="itemImage" asp-for="itemImage" class="form-control" id="imgInp" />
+                    <span asp-validation-for="itemImage" class="text-danger"></span>
+                </div>
+                <div class="col-6">
+                    <img id="blah" src="#" style="height: 60px; width: 60px;" class="img-thumbnail" />
+
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="form-group pt-2">
+                    <input type="submit" value="@_localizer.GetLocalizedHtmlString("Create")" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $(document).ready(function () {
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+
+        $("#mainGroupSelectid").change(function () {
+            var id = $("#mainGroupSelectid").val();
+            $.ajax({
+                cache: false,
+                type: "GET",
+                url: '@Url.Action("GetSubGroupsByMainGruopId", "Items")',
+                data: { "mainGropId": id },
+                success: function (json, textStatus) {
+                    $("#subGroupSelectid").empty();
+                    json = json || {};
+                    for (var i = 0; i < json.length; i++) {
+                        debugger;
+                        $("#subGroupSelectid").append('<option value="' + json[i].id + '">' + json[i].groupNameAr + '</option>');
+                    }                  
+                }           
+        });
+        });
+
+    });
+
+</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

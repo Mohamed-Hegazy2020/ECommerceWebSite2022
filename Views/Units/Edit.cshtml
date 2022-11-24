@@ -1,0 +1,42 @@
+﻿@model MyECommerceWebSite2022.ModelsView.UnitsViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("UpdateUnitTitle");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+
+<h4>@_localizer.GetLocalizedHtmlString("UpdateUnitTitle")</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="id" class="control-label"></label>
+            <input asp-for="id" class="form-control" />
+            <span asp-validation-for="id" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="UnitNameAr" class="control-label"></label>
+                <input asp-for="UnitNameAr" class="form-control" />
+                <span asp-validation-for="UnitNameAr" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitNameEn" class="control-label"></label>
+                <input asp-for="UnitNameEn" class="form-control" />
+                <span asp-validation-for="UnitNameEn" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <input type="submit" value="@_localizer.GetLocalizedHtmlString("Create")" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

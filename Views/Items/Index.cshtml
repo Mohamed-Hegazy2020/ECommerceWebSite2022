@@ -1,0 +1,98 @@
+﻿@model IEnumerable<MyECommerceWebSite2022.ModelsView.ItemsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("ItemsTab");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+<h1>@_localizer.GetLocalizedHtmlString("ItemsTab")</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success"> @_localizer.GetLocalizedHtmlString("CreateNew")</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+            @Html.DisplayNameFor(model => model.id)
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.itemNameAr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemNameEn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemDescreptionAr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemDescreptionEn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.groupId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.unitId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.curuncyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemImgFile)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.id)
+        </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.itemNameAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itemNameEn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itemDescreptionAr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itemDescreptionEn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.groupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.unitName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.curuncyName)
+            </td>
+            <td>
+                <img src="~/ItemsImages/@item.itemImgFile" style="height: 60px; width: 60px;" class="img-thumbnail" />
+
+            </td>
+            <td>
+                @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Edit"), "Edit", new { id = item.id }) |
+                @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Delete"), "Delete", new { id = item.id })
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

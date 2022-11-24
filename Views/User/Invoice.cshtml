@@ -1,0 +1,443 @@
+﻿
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<title>@_localizer.GetLocalizedHtmlString("PurchasesCar")</title>
+
+<script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+
+<style>
+    .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
+
+    @@media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+        }
+    }
+</style>
+<body class="bg-light">
+    <h1> @TempData["Message"]</h1>
+    <div class="container">
+        <main style="padding-top:150px;">
+            <div class="row g-5">
+                <div class="col-md-8 col-lg-6">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-primary">@_localizer.GetLocalizedHtmlString("yourOrderList")</span>
+                        <span id="invItmsCount" class="badge bg-primary rounded-pill">0</span>
+                    </h4>
+                    <div class="card">
+                        <h3 class="card-header text-center font-weight-bold text-uppercase py-4 d-none" style="padding:5px;">
+                            @_localizer.GetLocalizedHtmlString("InvoiceDetails")
+                        </h3>
+                        <div id="table" class="table-editable table-light">
+                            <table id="tbl" class="table table-responsive-md table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center d-none">@_localizer.GetLocalizedHtmlString("ItemCode")</th>
+                                        <th class="text-center">@_localizer.GetLocalizedHtmlString("ItemName")</th>
+                                        <th class="text-center">@_localizer.GetLocalizedHtmlString("Qty")</th>
+                                        <th class="text-center">@_localizer.GetLocalizedHtmlString("Price")</th>
+                                        <th class="text-center">@_localizer.GetLocalizedHtmlString("Total")</th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <span class="text-150 text-success-d3 opacity-2" id="">@_localizer.GetLocalizedHtmlString("Total") :</span>
+                        <span class="text-150 text-success-d3 opacity-2" id="sum"> 0 </span> <span class="text-success" id="curuncyspan">  </span>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-lg-6">
+                    <h4 class="mb-3 text-primary">@_localizer.GetLocalizedHtmlString("deleverData")</h4>
+                    <form class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-sm-12">
+                                <label for="customerName" class="form-label">@_localizer.GetLocalizedHtmlString("fullName")</label>
+                                <input type="text" class="form-control" id="customerName" placeholder="" required>
+                                <div class="invalid-feedback">
+                                    Valid name is required.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="address" class="form-label">@_localizer.GetLocalizedHtmlString("address")</label>
+                                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
+                                <div class="invalid-feedback">
+                                    Please enter your shipping address.
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="email" class="form-label">@_localizer.GetLocalizedHtmlString("Email")<span class="text-muted">(Optional)</span></label>
+                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email address for shipping updates.
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label for="country" class="form-label">@_localizer.GetLocalizedHtmlString("Phone")</label>
+                                <input type="tel" class="form-control" id="tel" placeholder="1234 Main St" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid tel.
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="state" class="form-label">@_localizer.GetLocalizedHtmlString("Mobile")</label>
+                                <input type="number" class="form-control" id="mobile" placeholder="1234 Main St" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid mobile.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        @*<div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="same-address">
+                                <label class="form-check-label" for="same-address">Shipping address is the same as my billing address</label>
+                            </div>
+
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="save-info">
+                                <label class="form-check-label" for="save-info">Save this information for next time</label>
+                            </div>
+
+                            <hr class="my-4">*@
+
+                        <h4 class="mb-3">@_localizer.GetLocalizedHtmlString("selectPaymentMethod")</h4>
+
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input id="100" name="payment-method" type="radio" class="form-check-input" checked required>
+                                @*<label class="form-check-label" for="credit">Credit card</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>عند الاستلام</span>
+                                    @*<img src="~/PaymentImages/icons8-visa-48.png" style="max-height:40px; max-width:60px;" />*@
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="1" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="credit">Credit card</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>كينت</span>
+                                    <img src="~/PaymentImages/knt.png" style="max-height:40px; max-width:60px;" />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="6" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="debit">Debit card</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>مدي</span>
+                                    <img src="~/PaymentImages/mada3.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="3" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>ميزة</span>
+                                    <img src="~/PaymentImages/meza.jpg" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="3" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>أميكس</span>
+                                    <img src="~/PaymentImages/amex.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="4" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>سداد</span>
+                                    <img src="~/PaymentImages/sadad.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="11" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>أبيل</span>
+                                    <img src="~/PaymentImages/apel.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="2" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>فيزا / ماستر</span>
+                                    <img src="~/PaymentImages/vizamaster.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input id="5" name="payment-method" type="radio" class="form-check-input" required>
+                                @*<label class="form-check-label" for="paypal">PayPal</label>*@
+                                <label class="form-check-label" for="credit">
+                                    <span>بنفت</span>
+                                    <img src="~/PaymentImages/bnft.png" style="max-height: 40px; max-width: 60px; " />
+                                </label>
+                            </div>
+                        </div>
+                        <hr class="my-4">
+
+                    </form>
+
+
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-info h-75" role="alert">
+                        <h6 id="alert">لإرسال الطلب إضغط علي تنفيذ الطلب!</h6>
+                    </div>
+                </div>
+                <div class="col">
+                    <button id="payBtn" class="w-100 h-75 btn btn-primary btn-lg">@_localizer.GetLocalizedHtmlString("sendOredr")</button>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="my-5 pt-5 text-muted text-center text-small">
+            <p class="mb-1">&copy; 2017–2021 Company Name</p>
+            <ul class="list-inline">
+                <li class="list-inline-item"><a href="#">Privacy</a></li>
+                <li class="list-inline-item"><a href="#">Terms</a></li>
+                <li class="list-inline-item"><a href="#">Support</a></li>
+            </ul>
+        </footer>
+    </div>
+    <script src="~/UserAssets/js/form-validation.js"></script>
+    <script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+</body>
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/notfyHub").build();
+    connection.on("updateNotfysClient", function () {
+
+    });
+    var userLang = JSON.parse('@Html.Raw(Json.Serialize(ViewData["lan"]))');
+
+    function ShowItemCard() {
+        debugger;
+        $.ajax({
+
+            type: "get",
+            url: "/Home/ShowItemCard",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                if (r != null) {
+                    $('tbody').empty();
+                    if (userLang === "en") {
+                        $.each(r, function (k, v) {
+                            var totl = v.quantity * v.price;
+                            const newTr = '<tr class="text-center"><td class="pt-3-half d-none itmCode">' + v.id + '</td><td class="pt-3-half itemName">' + v.itemNameEn + '</td> <td class="pt-3-half" contenteditable="true"><input type="number" value="' + v.quantity + '" class="qty" style="width:80px;text-align:center"></td> <td class="pt-3-half price">' + v.price + '</td><td class="pt-3-half total">' + totl + '</td><td><img class="img-thumbnail" src="/ItemsImages/' + v.itemImgFile  + '" alt="Card image" style="width:30%;height:30"></td><td><span class="table-remove"><button type="button" id="delBtn" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light delBtn">حذف </button> </span> </td></tr > ';
+                            $('tbody').append(newTr);
+
+                        });
+                    }
+                    else {
+                        $.each(r, function (k, v) {
+                            var totl = v.quantity * v.price;
+                            const newTr = '<tr class="text-center"><td class="pt-3-half d-none itmCode">' + v.id + '</td><td class="pt-3-half itemName">' + v.itemNameAr + '</td> <td class="pt-3-half" contenteditable="true"><input type="number" value="' + v.quantity + '" class="qty" style="width:80px;text-align:center"></td> <td class="pt-3-half price">' + v.price + '</td><td class="pt-3-half total">' + totl + '</td><td><img class="img-thumbnail" src="/ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:30%;height:30"></td><td><span class="table-remove"><button type="button" id="delBtn" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light delBtn">حذف </button> </span> </td></tr > ';
+                            $('tbody').append(newTr);
+
+                        });
+                    }
+                }
+
+                calc_total();
+            }
+        });
+
+    };
+
+    function calc_total() {
+        var sum = 0;
+        $(".total").each(function () {
+            sum += parseFloat($(this).text());
+        });
+        $('#sum').text(sum);
+    }
+
+    $(document).ready(function () {
+        connection.start();
+        ShowItemCard();
+
+        $.ajax({
+            type: "get",
+            url: "/Home/GeSshopingCarCount",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                debugger;
+                shopingCar = r;
+                $("#shopingCar").html(r);
+                $("#invItmsCount").html(r);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/Home/GetDefultCuruncy",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                $("#curuncyspan").html(r);
+            }
+        });
+
+
+        $("#tbl tbody").on('click', '.delBtn', function () {
+            debugger;
+            var row = $(this).closest("tr");
+           /* var qty = parseFloat(row.find(".qty").val());*/
+            var id = parseInt(row.find(".itmCode").text());
+            shopingCar--;
+            $.ajax({
+                type: "POST",
+                url: "/Home/DeleteItemFromCard",
+                dataType: "json",
+                data: { id: id, shopingCar: shopingCar },
+                contentType: "application/x-www-form-urlencoded",
+                success: function (r) {
+
+                    $("#shopingCar").html(shopingCar);
+                    $("#invItmsCount").html(shopingCar);
+                    $(row).remove();
+                    calc_total();
+                }
+            });
+        });
+
+        $("table").on("change", "input", function () {
+            debugger
+            var row = $(this).closest("tr");
+            var id = parseInt(row.find(".itmCode").text());
+            var qty = parseFloat(row.find(".qty").val());
+            var price = parseFloat(row.find(".price").text());
+            var total = qty * price;
+            row.find(".total").text(isNaN(total) ? "" : total);
+            $.ajax({
+                type: "POST",
+                url: "/Home/changeItemCardQty",
+                dataType: "json",
+                data: { id: id, qty: qty },
+                contentType: "application/x-www-form-urlencoded",
+                success: function (r) {
+
+                }
+            });
+            calc_total();
+        });
+
+        $("#payBtn").click(function () {
+
+            var InvoiceDetailes = new Array();
+           /* var InvoiceMaster = new Array();*/
+            var customerName = $("#customerName").val();
+            var customerTel = $("#tel").val();
+            var customerMobile = $("#mobile").val();
+            var customerAddress = $("#address").val();
+            var amount = $("#sum").text();
+            var PaymentmethodType = $("input[type='radio'][name='payment-method']:checked").attr('id');
+            if (amount > 0 && customerName != "" && customerMobile != "" && customerAddress != "") {
+                $('#tbl tbody tr').each(function () {
+                    debugger
+                    var inv = {};
+
+                    inv.itemCode = $(this).find(".itmCode").text();
+                    inv.itemName = $(this).find(".itemName").text();
+                    inv.quantity = $(this).find(".qty").val();
+                    inv.price = $(this).find(".price").text();
+
+                    InvoiceDetailes.push(inv);
+                });
+                var invMaster = {};
+                invMaster.customerName = customerName;
+                invMaster.customerTel = customerTel;
+                invMaster.customerMobile = customerMobile;
+                invMaster.customerAddress = customerAddress;
+                invMaster.amount = amount;
+
+                /*InvoiceMaster.push(invMaster);*/
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/payming",
+                    data: { 'InvoiceMaster': invMaster, 'InvoiceDetailes': InvoiceDetailes, 'amount': amount, 'PaymentmethodType': PaymentmethodType },
+                    contentType: "application/x-www-form-urlencoded", /*application/json; charset=utf-8",*/
+                    dataType: "json",
+                    success: function (r) {
+                        debugger
+                        if (r.msg == 'payed') {
+                            window.location = r.url;
+                            $("#alert").html(r.url);
+                            var el = $('.alert-danger');
+                            el.addClass('alert-success');
+                            el.removeClass('alert-danger');
+                        } else {
+
+                            $("#alert").html(r.url);
+                            var el = $('.alert-danger');
+                            el.addClass('alert-success');
+                            el.removeClass('alert-danger');
+
+                            alert(r.url);
+                            location.reload();
+
+                        }
+                        connection.invoke("updateNotfys");
+                    },
+                    error: function (r) {
+                        $("#alert").html(r.url);
+                        var el = $('.alert-success');
+                        el.addClass('alert-danger');
+                        el.removeClass('alert-success');
+                        /* alert(r.url);*/
+                    }
+                });
+            }
+            else
+            {
+                debugger;
+                $("#alert").html("يجب ادخال الاسم والعنوان ورقم الجوال .");
+                var el = $('.alert-success,.alert-info');
+                el.addClass('alert-danger');
+                el.removeClass('.alert-success,.alert-info');
+
+
+
+            }
+
+
+        }
+        );
+
+
+    });
+
+</script>

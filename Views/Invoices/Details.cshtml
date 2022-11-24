@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MyECommerceWebSite2022.ModelsView.InvoiceDetailsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+<h1>Details</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.itemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsViewed)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.itemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsViewed)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="form-group pt-2">
+    <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+
+</div>

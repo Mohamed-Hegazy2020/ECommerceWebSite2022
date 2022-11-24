@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAoBC8mkZ19U6eoJOwURAZ1wAAAAACAAAAAAAQZgAAAAEAACAAAACoa4idFeEF7zv2Q2dvXwFf3xE2w4tAl7t4Z7TPTUW39QAAAAAOgAAAAAIAACAAAADzEXBqi3QM0h04AQUggYIl1rsD3ElXtc3Q70oLw8LqpiAAAAC4R0EVOroDVDmvROhqEN8U198QTLXaEKDluvqQ0teqCkAAAAA9mtm3o9QaP1kb9Dm9EL0/yOjozT9dZ3rBULarmlBVBMKf4snaFl4tP4/1PNiqpTOj/9LQqkU8qTp4YcYuBKWV</EncryptedPassword>
+    <_PublishTargetUrl>ftp://155.254.244.35/www.shoping.somee.com/ftp://155.254.244.35/www.shoping.somee.com</_PublishTargetUrl>
+    <History>False|2022-03-12T23:16:40.2829204Z;False|2022-03-13T01:12:21.9803733+02:00;False|2022-03-13T01:07:01.7770511+02:00;False|2022-03-13T00:38:22.8209655+02:00;False|2022-03-13T00:34:22.0763095+02:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="MyConnection">
+      <Value>Server=.\%3bDatabase=ShopingDB%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="MyECommerceWebSite2022.Models.shopingDBContext">
+      <Value>Server=.\%3bDatabase=ShopingDB%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,105 @@
+﻿
+@model List<MyECommerceWebSite2022.ModelsView.GroupsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+@{
+
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<title>@_localizer.GetLocalizedHtmlString("GroupsTab")</title>
+<script src="~/assets/js/jquery-3.4.1.min.js"></script>
+<div class="tab-content" id="myTabContent" style="margin-top:130px;">
+    <div id="HomeTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="Home">
+
+        <section class="container py-5" id="OurCategoryTab">
+            <div class="row text-center pt-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">@_localizer.GetLocalizedHtmlString("OurCategory")</h1>
+                    <p>
+                        مع تسوق من 30 علامة تجارية من اشهر مواقع الشراء من امريكا
+                        تسوق من امازون امريكا وايباي و‎ Forever 21 ‎او من افضل مواقع شراء اون لاين من ‏امريكا لحد باب البيت ‏مع تسوق وسيط شراء من امريكا
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-12 col-md-4 p-5 mt-3">
+                                <a asp-controller="User" asp-action="Prouducts" asp-route-id="@item.id"><img src="~/GroupImages/@item.GroupImgFile" id="img_@item.id" name="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.GroupNameEn : item.GroupNameAr)" class="rounded-circle img-fluid border" style="height: 300px; width: 300px;"></a>
+                                <h5 class="text-center mt-3 mb-3">
+                                    @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en")
+                                    {
+                                        @item.GroupNameEn
+                                    }
+                                    else
+                                    {
+                                        @item.GroupNameAr;
+                                    }
+                                </h5>
+                                <p class="text-center"><a asp-controller="User" asp-action="Prouducts" asp-route-id="@item.id" class="btn btn-success">عرض</a></p>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </section>
+
+
+    </div>
+</div>
+
+<script>
+    var userLang = JSON.parse('@Html.Raw(Json.Serialize(ViewData["lan"]))');
+
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "get",
+            url: "/Home/GeSshopingCarCount",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                debugger;
+                shopingCar = r;
+                $("#shopingCar").html(r);
+            }
+        });
+
+        $("#srchSlect").on("change", function () {
+            debugger
+            var gid = $(this).val();
+            if (gid >= 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/UserItems/getItems",
+                    data: { 'gid': gid },
+                    contentType: "application/x-www-form-urlencoded",
+                    dataType: "json",
+                    success: function (r) {
+                        var card = "";
+                        $("#cardsDiv").empty();
+                        $.each(r, function (k, v) {
+                            debugger
+                            card = '<div class="card bg-light cardimg"><img class="card-img-top" id="img_' + v.id + '" src="ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:100%;height:200px">' +
+                                '<div class="card-body text-center" id="itm"><h4 class="card-title text-center itmName">' + v.itemName + '</h4> <h4 class="card-title text-center itmDesc">' + v.itemDescreption + '</h4><p class="card-text text-center itmPrice" id="price" name="' + v.price + '">ريال' + v.price + ' </p>' +
+                                '<button  class="add btn btn-primary" id="' + v.id + '" name="' + v.itemName + '" ><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button></div></div>';
+
+                            $("#cardsDiv").append(card);
+                        });
+
+                    }
+                });
+            }
+
+
+        });
+
+
+    });
+
+</script>
+
+
+

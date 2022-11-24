@@ -1,0 +1,159 @@
+﻿@model MyECommerceWebSite2022.ModelsView.CompanyDataViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("CompanyDataViewModel");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+<h4> @_localizer.GetLocalizedHtmlString("CompanyDataViewModel")</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="CompanyNameAr" class="control-label"></label>
+                        <input asp-for="CompanyNameAr" class="form-control" />
+                        <span asp-validation-for="CompanyNameAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="CompanyNameEn" class="control-label"></label>
+                        <input asp-for="CompanyNameEn" class="form-control" />
+                        <span asp-validation-for="CompanyNameEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="AddressAr" class="control-label"></label>
+                        <input asp-for="AddressAr" class="form-control" />
+                        <span asp-validation-for="AddressAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="AddressEn" class="control-label"></label>
+                        <input asp-for="AddressEn" class="form-control" />
+                        <span asp-validation-for="AddressEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Mobile" class="control-label"></label>
+                        <input asp-for="Mobile" class="form-control" />
+                        <span asp-validation-for="Mobile" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Fax" class="control-label"></label>
+                        <input asp-for="Fax" class="form-control" />
+                        <span asp-validation-for="Fax" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="FaceBookLink" class="control-label"></label>
+                        <input asp-for="FaceBookLink" class="form-control" />
+                        <span asp-validation-for="FaceBookLink" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="TwitterLink" class="control-label"></label>
+                        <input asp-for="TwitterLink" class="form-control" />
+                        <span asp-validation-for="TwitterLink" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="InstgramLink" class="control-label"></label>
+                        <input asp-for="InstgramLink" class="form-control" />
+                        <span asp-validation-for="InstgramLink" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="LinkedinLink" class="control-label"></label>
+                        <input asp-for="LinkedinLink" class="form-control" />
+                        <span asp-validation-for="LinkedinLink" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="AboutDescreptionAr" class="control-label"></label>
+                        <textarea asp-for="AboutDescreptionAr" class="form-control"></textarea>
+                        <span asp-validation-for="AboutDescreptionAr" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="AboutDescreptionEn" class="control-label"></label>
+                        <textarea asp-for="AboutDescreptionEn" class="form-control"></textarea>
+                        <span asp-validation-for="AboutDescreptionEn" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+
+                    <div class="form-group">
+                        <label asp-for="itemImage" class="control-label"></label>
+                        <input type="file" name="itemImage" asp-for="itemImage" class="form-control" />
+                        <span asp-validation-for="itemImage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <img src="~/GroupImages/@Model.LogoImage" style="height: 60px; width: 60px;" class="img-thumbnail" />    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group pt-2">
+                        <input type="submit" value="@_localizer.GetLocalizedHtmlString("Create")" class="btn btn-primary" />
+                        <a asp-action="Index" class="btn btn-info">@_localizer.GetLocalizedHtmlString("BackToList")</a>
+                    </div>
+                </div>
+                <div class="col-6">
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

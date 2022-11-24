@@ -1,0 +1,109 @@
+﻿@model MyECommerceWebSite2022.ModelsView.PrintInvoiceViewModel
+
+@{
+    ViewData["Title"] = "PrintInvoice";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+@*<link href="~/UserAssets/css/bootstrap.min.css" rel="stylesheet" />*@
+<h1 style="text-align:center">فاتورة مشتريات</h1>
+
+<div>
+  
+    @if (Model.InvoiceMasterViewModel != null)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th style="width:15%;">
+                        @Html.DisplayNameFor(model => model.InvoiceMasterViewModel.customerName):
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model.InvoiceMasterViewModel.customerName)
+                    </th>
+                    <th style="width:15%;">
+                        @Html.DisplayNameFor(model => model.InvoiceMasterViewModel.customerMobile):
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model.InvoiceMasterViewModel.customerMobile)
+                    </th>
+                </tr>
+                <tr>
+                    <th style="width:15%;">
+                        @Html.DisplayNameFor(model => model.InvoiceMasterViewModel.customerAddress):
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model.InvoiceMasterViewModel.customerAddress)
+                    </th>
+                    <th style="width:15%;">
+                        @Html.DisplayNameFor(model => model.InvoiceMasterViewModel.customerTel):
+                    </th>
+                    <th>
+                        @Html.DisplayFor(model => model.InvoiceMasterViewModel.customerTel)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+      
+        if (Model.InvoiceDetailsViewModel.Count > 0)
+        {
+            <table class="table w-100">
+                <thead>
+                    <tr class="bg-info w-100">
+                        <th>
+                            @Html.DisplayNameFor(model => model.InvoiceDetailsViewModel.FirstOrDefault().itemCode)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InvoiceDetailsViewModel.FirstOrDefault().itemName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InvoiceDetailsViewModel.FirstOrDefault().quantity)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.InvoiceDetailsViewModel.FirstOrDefault().price)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.InvoiceDetailsViewModel)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.itemCode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.itemName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.price)
+                            </td>
+                        </tr>
+                    }
+                   
+                <tr style="background-color: lightblue; color: white;padding-top:100px; margin-top:100px;">
+                    <td>@Html.DisplayNameFor(model => model.InvoiceMasterViewModel.InvoiceTotal)</td>
+                    <td colspan="2"></td>
+                    <td colspan="1">@Html.DisplayFor(model => model.InvoiceMasterViewModel.InvoiceTotal) @Html.DisplayFor(model => model.InvoiceMasterViewModel.CuruncyName)</td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        }
+    }
+
+
+</div>
+@*<script src="~/UserAssets/js/bootstrap.bundle.min.js"></script>*@

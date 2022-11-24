@@ -1,0 +1,123 @@
+﻿@model IEnumerable<MyECommerceWebSite2022.ModelsView.InvoiceMasterViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+}
+<link href="~/UserAssets/css/fontawesome.min.css" rel="stylesheet" />
+<script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+
+
+@*<div class="row">
+    <div class="col-10">
+        <div class="col-md-12 pb-4">
+            <div class="d-flex">
+                <h3>الطلبيات</h3>
+                <select id="srchSlect" class="form-select" asp-items="@(new SelectList(ViewBag.InvoiceSearch,"id","name",Model.Count()>0? Model.FirstOrDefault().SearchId:-1))"></select>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+
+    </div>
+</div>*@
+
+<table>
+    <thead>
+        <tr>
+            <th style="width: 15%;">
+                <h4>الطلبيات</h4>
+            </th>
+            <th style="text-align:right;">
+                @*<select id="srchSlect" class="" asp-items="@(new SelectList(ViewBag.InvoiceSearch,"id","name",Model.Count()>0? Model.FirstOrDefault().SearchId:-1))"></select>*@
+            </th>  
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>
+
+<table class="table table-responsive" style="font-size:small;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.customerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerMobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.customerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.paymentMethodName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.invoiceDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InvoiceTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CuruncyName)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IsPayed)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleverd)
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerTel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerMobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.customerAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.paymentMethodName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.invoiceDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InvoiceTotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CuruncyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPayed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDeleverd)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

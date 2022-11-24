@@ -1,0 +1,133 @@
+﻿@model IList<MyECommerceWebSite2022.ModelsView.ItemsViewModel>
+
+
+    <div id="multi-item-example" class="col-10 carousel slide carousel-multi-item" data-bs-ride="carousel">
+        <!--Start Slides-->
+        <div class="carousel-inner product-links-wap" role="listbox">
+            @if (Model.Count > 0)
+            {
+                <div class="carousel-item active">
+                    <div class="row">
+                        @if (Model.Count > 0)
+                        {
+                            <div class="col-4">
+                                <a href="#">
+                                    <img class="card-img img-fluid"  src="~/ItemsImages/@Model[0].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[0].id);" style="max-height: 100Px; max-height: 100px; min-height: 100px; min-width: 100px;">
+                                </a>
+                            </div>
+                        }
+
+                        @if (Model.Count > 1)
+                        {
+                            <div class="col-4">
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="~/ItemsImages/@Model[1].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[1].id);" style="max-height: 100Px; max-height: 100px; min-height: 100px; min-width: 100px;">
+                                </a>
+                            </div>
+                        }
+                        @if (Model.Count > 2)
+                        {
+                            <div class="col-4">
+                                <a href="#">
+                                    <img class="card-img img-fluid" src="~/ItemsImages/@Model[2].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[2].id);" style="max-height: 100Px; max-height: 100px; min-height: 100px; min-width: 100px;">
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                for (int i = 3; i < Model.Count-1; i++)
+                {
+                    <div class="carousel-item">
+                        <div class="row">
+                            @if (Model.Count > i)
+                            {
+                                <div class="col-4">
+                                    <a href="#">
+                                        <img class="card-img img-fluid" src="~/ItemsImages/@Model[i].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[i].id);" style="max-height: 100Px; max-height: 100px; min-height: 100px; min-width: 100px;">
+                                    </a>
+                                </div>
+                            }
+
+                            @if (Model.Count > ++i)
+                            {
+                                <div class="col-4">
+                                    <a href="#">
+                                        <img class="card-img img-fluid" src="~/ItemsImages/@Model[i].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[i].id);" style="max-height:100Px; max-height:100px; min-height:100px; min-width:100px;">
+                                    </a>
+                                </div>
+                            }
+                            @if (Model.Count > ++i)
+                            {
+                                <div class="col-4">
+                                    <a href="#">
+                                        <img class="card-img img-fluid" src="~/ItemsImages/@Model[i].itemImgFile" alt="Product Image 1" onclick="GetItemById(@Model[i].id);" style="max-height: 100Px; max-height: 100px; min-height: 100px; min-width: 100px;">
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+
+            }
+
+
+
+        </div>
+        <!--End Slides-->
+    </div>
+    <script>
+    var shopingCar = 0;
+    function add_ItemToInvoice(price, e) {
+        $.ajax({
+            type: "POST",
+            url: "/Home/addItemToCard",
+            dataType: "json",
+            data: { id: id, shopingCar: shopingCar},
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                $("#shopingCar").html(r);
+
+
+
+            }
+        });
+
+
+    };
+
+        function GetItemById(id)
+        {
+                var userLang = JSON.parse('@Html.Raw(Json.Serialize(ViewData["lan"]))');
+
+            $.ajax({
+                type: "get",
+                url: "/User/GetItemById",
+                dataType: "json",
+                data: { id: id},
+                contentType: "application/x-www-form-urlencoded",
+                success: function (r) {
+                    debugger;
+                    if (userLang === "en") {
+                        $("#itmGroupName").html(r.groupName);
+                        $("#itmName").html(r.itemNameEn);
+                        $("#itemDescreption").html(r.itemDescreptionEn);
+                        $("#itemquantity").html(r.quantity);
+                        $("#itemprice").html(r.price + r.curuncyName);
+                        $("#addToCardBtn").html(r.id);
+                    }
+                    else
+                    {
+                        $("#itmGroupName").html(r.groupName);
+                        $("#itmName").html(r.itemNameAr);
+                        $("#itemDescreption").html(r.itemDescreptionAr);
+                        $("#itemquantity").html(r.quantity);
+                        $("#itemprice").html(r.price + r.curuncyName);
+                        $("#addToCardBtn").attr('name',r.id);
+                    }
+                   
+                }
+            });
+        };
+
+    </script>

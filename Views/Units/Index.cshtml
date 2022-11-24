@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MyECommerceWebSite2022.ModelsView.UnitsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("UnitsTab");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+<h1>@_localizer.GetLocalizedHtmlString("UnitsTab")</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success"> @_localizer.GetLocalizedHtmlString("CreateNew")</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.id)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.UnitNameAr)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitNameEn)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitNameAr)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitNameEn)
+                </td>
+                <td>
+                    @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Edit"), "Edit", new { id = item.id }) |
+                    @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Delete"), "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

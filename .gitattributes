@@ -1,0 +1,4 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+libcef.dll filter=lfs diff=lfs merge=lfs -text
+*.DLL filter=lfs diff=lfs merge=lfs -text

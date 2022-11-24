@@ -1,0 +1,105 @@
+﻿@model IList<MyECommerceWebSite2022.ModelsView.ItemsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+
+<section class="bg-light">
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">@_localizer.GetLocalizedHtmlString("SpecialItems")</h1>
+                <p>
+                    Reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    Excepteur sint occaecat cupidatat non proident.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            @{
+                if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-4">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0">
+                                    <img class="card-img rounded-0 img-fluid mx-auto d-block" id="itmProduct_@item.id" src="~/ItemsImages/@item.itemImgFile" style="height: 300px; width: 300px;">
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            @*<li><a class="btn btn-success text-white" href="#"><i class="far fa-heart"></i></a></li>*@
+                                            <li><a class="btn btn-success text-white mt-2" asp-controller="User" asp-action="ProuductDetails" asp-route-id="@item.id"><i class="far fa-eye"></i></a></li>
+                                            <li><a class="btn btn-success text-white mt-2" id="@item.id" name="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.itemNameEn : item.itemNameAr)" onclick="add_ItemToInvoice(this);"><i class="fas fa-cart-plus"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <a href="" class="h3 text-decoration-none text-success">@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.itemNameEn : item.itemNameAr)</a>
+                                    <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
+                                        <li style="font-size: 12px !important">@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.itemDescreptionEn : item.itemDescreptionAr)</li>
+                                        <li class="pt-2">
+                                            <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
+                                            <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
+                                        </li>
+                                    </ul>
+                                    <ul class="list-unstyled d-flex justify-content-center mb-1">
+                                        <li>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-warning fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                            <i class="text-muted fa fa-star"></i>
+                                        </li>
+                                    </ul>
+                                    <p class="text-center mb-0" id="price" name="@item.price"> @item.price <span class="text-success">@item.curuncyName </span> </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</section>
+
+<script>
+    var shopingCar = 0;
+    function add_ItemToInvoice(e) {
+        debugger;
+        var id = e.id;
+        $.ajax({
+            type: "POST",
+            url: "/Home/addItemToCard",
+            dataType: "json",
+            data: { id: id, shopingCar: shopingCar },
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                $("#shopingCar").html(r);
+
+
+
+            }
+        });
+
+
+    };
+
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "get",
+            url: "/Home/GeSshopingCarCount",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                debugger;
+                shopingCar = r;
+                $("#shopingCar").html(r);
+            }
+        });
+
+    });
+
+</script>

@@ -1,0 +1,169 @@
+﻿
+@model List<MyECommerceWebSite2022.ModelsView.GroupsViewModel>
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+@{
+   
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<title>@_localizer.GetLocalizedHtmlString("Home")</title>
+<script src="~/assets/js/jquery-3.4.1.min.js"></script>
+<div class="tab-content" id="myTabContent" style="margin-top:130px;">
+    <div id="HomeTab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="Home">
+
+        <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="3" class="active"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="4"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="5"></li>
+            </ol>
+            <div class="carousel-inner">
+                @if (Model.Count > 0 && Model.FirstOrDefault().Sliders.Count > 0)
+                {<div class="carousel-item active">
+                        <div class="container">
+                            <div class="row p-5">
+                                <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                    <img class="img-fluid" src="./UserAssets/img/Difference-Between-E-Commerce-and-E-Business-removebg-preview.jpg" alt="" style="max-height: 370px; max-width: 600px; ">
+                                </div>
+                                <div class="col-lg-6 mb-0 d-flex align-items-center">
+                                    <div class="text-align-left align-self-center">
+                                        <h1 class="h1 text-success"><b>تسوق</b> للتجارة الالكترونية</h1>
+                                        <h3 class="h2">عن تسوق</h3>
+                                        <p>
+                                            تسوق للتجارة الالكترونيه من اهم واشهر مواقع التجارة يقدم لك كل ما تبحث علية.
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    foreach (var item in Model.FirstOrDefault().Sliders)
+                    {
+                        <div class="carousel-item">
+                            <div class="container">
+                                <div class="row p-5">
+                                    <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+                                        <img class="img-fluid" src="SliderImages/@item.ImagePath" alt="" style="max-height: 370px; max-width: 600px; ">
+                                    </div>
+                                    <div class="col-lg-6 mb-0 d-flex align-items-center">
+                                        <div class="text-align-left align-self-center">
+                                            <h1 class="h1 text-success"><b>تسوق</b> للتجارة الالكترونية</h1>
+                                            <h3 class="h2">@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.HedarEn : item.HedarAr)</h3>
+                                            <p>
+                                                @(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.DescreptionEn : item.DescreptionAr)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+
+                }
+
+            </div>
+            <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <section class="container py-5" id="OurCategoryTab">
+            <div class="row text-center pt-3">
+                <div class="col-lg-10 m-auto">
+                    <h1 class="h1">@_localizer.GetLocalizedHtmlString("OurCategory")</h1>
+                    <p>
+                        مع تسوق من 30 علامة تجارية من اشهر مواقع الشراء من امريكا
+                        تسوق من امازون امريكا وايباي و‎ Forever 21 ‎او من افضل مواقع شراء اون لاين من ‏امريكا لحد باب البيت ‏مع تسوق وسيط شراء من امريكا
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-12 col-md-4 p-5 mt-3">
+                                <a asp-controller="User" asp-action="Prouducts" asp-route-id="@item.id"><img src="GroupImages/@item.GroupImgFile" id="img_@item.id" name="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.GroupNameEn : item.GroupNameAr)" class="rounded-circle img-fluid border" style="height: 300px; width: 300px;"></a>
+                                <h5 class="text-center mt-3 mb-3">
+                                    @if (System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en")
+                                    {
+                                        @item.GroupNameEn
+                                    }
+                                    else
+                                    {
+                                        @item.GroupNameAr;
+                                    }
+                                </h5>
+                                <p class="text-center"><a asp-controller="User" asp-action="Prouducts" asp-route-id="@item.id" class="btn btn-success">عرض</a></p>
+                            </div>
+                        }
+                    }
+                }
+            </div>
+        </section>
+
+        @(await Component.InvokeAsync("SpecialItemsViewComponent"))
+
+    </div>
+</div>
+
+<script>
+    var userLang = JSON.parse('@Html.Raw(Json.Serialize(ViewData["lan"]))');
+
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "get",
+            url: "/Home/GeSshopingCarCount",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: function (r) {
+                debugger;
+                shopingCar = r;
+                $("#shopingCar").html(r);
+            }
+        });
+
+        $("#srchSlect").on("change", function () {
+            debugger
+            var gid = $(this).val();
+            if (gid >= 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/UserItems/getItems",
+                    data: { 'gid': gid },
+                    contentType: "application/x-www-form-urlencoded",
+                    dataType: "json",
+                    success: function (r) {
+                        var card = "";
+                        $("#cardsDiv").empty();
+                        $.each(r, function (k, v) {
+                            debugger
+                            card = '<div class="card bg-light cardimg"><img class="card-img-top" id="img_' + v.id + '" src="ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:100%;height:200px">' +
+                                '<div class="card-body text-center" id="itm"><h4 class="card-title text-center itmName">' + v.itemName + '</h4> <h4 class="card-title text-center itmDesc">' + v.itemDescreption + '</h4><p class="card-text text-center itmPrice" id="price" name="' + v.price + '">ريال' + v.price + ' </p>' +
+                                '<button  class="add btn btn-primary" id="' + v.id + '" name="' + v.itemName + '" ><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button></div></div>';
+
+                            $("#cardsDiv").append(card);
+                        });
+
+                    }
+                });
+            }
+
+
+        });
+
+
+    });
+
+</script>
+
+

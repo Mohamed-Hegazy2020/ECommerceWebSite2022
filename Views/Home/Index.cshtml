@@ -1,0 +1,1150 @@
+﻿@model MyECommerceWebSite2022.ModelsView.ShowDataViewModel
+
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .itmName {
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 20px;
+        color: darkgreen;
+        font-weight: bold;
+    }
+
+    .itmDesc {
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 14px;
+        font-weight: bold;
+        color: Highlight;
+    }
+
+    .itmPrice {
+        color: darkred;
+        font-weight: bold;
+    }
+
+    body {
+        margin-top: 20px;
+        color: #484b51;
+    }
+
+    .pt-3-half {
+        padding-top: 1.4rem;
+    }
+
+    .text-secondary-d1 {
+        color: #728299 !important;
+    }
+
+    .page-header {
+        margin: 0 0 1rem;
+        padding-bottom: 1rem;
+        padding-top: .5rem;
+        border-bottom: 1px dotted #e2e2e2;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .page-title {
+        padding: 0;
+        margin: 0;
+        font-size: 1.75rem;
+        font-weight: 300;
+    }
+
+    .brc-default-l1 {
+        border-color: #dce9f0 !important;
+    }
+
+    .ml-n1, .mx-n1 {
+        margin-left: -.25rem !important;
+    }
+
+    .mr-n1, .mx-n1 {
+        margin-right: -.25rem !important;
+    }
+
+    .mb-4, .my-4 {
+        margin-bottom: 1.5rem !important;
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0,0,0,.1);
+    }
+
+    .text-grey-m2 {
+        color: #888a8d !important;
+    }
+
+    .text-success-m2 {
+        color: #86bd68 !important;
+    }
+
+    .font-bolder, .text-600 {
+        font-weight: 600 !important;
+    }
+
+    .text-110 {
+        font-size: 110% !important;
+    }
+
+    .text-blue {
+        color: #478fcc !important;
+    }
+
+    .pb-25, .py-25 {
+        padding-bottom: .75rem !important;
+    }
+
+    .pt-25, .py-25 {
+        padding-top: .75rem !important;
+    }
+
+    .bgc-default-tp1 {
+        background-color: rgba(121,169,197,.92) !important;
+    }
+
+    .bgc-default-l4, .bgc-h-default-l4:hover {
+        background-color: #f3f8fa !important;
+    }
+
+    .page-header .page-tools {
+        -ms-flex-item-align: end;
+        align-self: flex-end;
+    }
+
+    .btn-light {
+        color: #757984;
+        background-color: #f5f6f9;
+        border-color: #dddfe4;
+    }
+
+    .w-2 {
+        width: 1rem;
+    }
+
+    .text-120 {
+        font-size: 120% !important;
+    }
+
+    .text-primary-m1 {
+        color: #4087d4 !important;
+    }
+
+    .text-danger-m1 {
+        color: #dd4949 !important;
+    }
+
+    .text-blue-m2 {
+        color: #68a3d5 !important;
+    }
+
+    .text-150 {
+        font-size: 150% !important;
+    }
+
+    .text-60 {
+        font-size: 60% !important;
+    }
+
+    .text-grey-m1 {
+        color: #7b7d81 !important;
+    }
+
+    .align-bottom {
+        vertical-align: bottom !important;
+    }
+
+
+
+    .baseBlock {
+        margin: 0px 0px 35px 0px;
+        padding: 0 0 15px 0px;
+        border-radius: 5px;
+        overflow: hidden;
+        min-height: 390px;
+        background: #fff;
+        -moz-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        -o-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+        .baseBlock:hover {
+            -webkit-transform: translate(0, -8px);
+            -moz-transform: translate(0, -8px);
+            -ms-transform: translate(0, -8px);
+            -o-transform: translate(0, -8px);
+            transform: translate(0, -8px);
+            box-shadow: 0 40px 40px rgba(0, 0, 0, 0.2);
+        }
+
+    address {
+        font-style: normal;
+    }
+
+    button {
+        border: 0;
+        color: inherit;
+        cursor: pointer;
+        font: inherit;
+    }
+
+    fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    legend {
+        font-weight: 600;
+        margin-block-end: 0.5em;
+        padding: 0;
+    }
+
+    input {
+        border: 0;
+        color: inherit;
+        font: inherit;
+    }
+
+
+    .button {
+        align-items: center;
+        background-color: var(--color-primary);
+        border-radius: 999em;
+        color: #fff;
+        display: flex;
+        gap: 0.5em;
+        justify-content: center;
+        padding-block: 0.75em;
+        padding-inline: 1em;
+        transition: 0.3s;
+    }
+
+        .button:focus,
+        .button:hover {
+            background-color: #e96363;
+        }
+
+    .button--full {
+        inline-size: 100%;
+    }
+
+    .card {
+        border-radius: 1em;
+        background-color: var(--color-primary);
+        color: #fff;
+        padding: 1em;
+    }
+
+    .form {
+        display: grid;
+        gap: 2em;
+    }
+
+    .form__radios {
+        display: grid;
+        gap: 1em;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    .form__radio {
+        align-items: center;
+        background-color: #fefdfe;
+        border-radius: 1em;
+        box-shadow: 0 0 1em rgba(0, 0, 0, 0.0625);
+        display: flex;
+        padding: 5px;
+        margin: 8px;
+    }
+
+        .form__radio label {
+            align-items: center;
+            display: flex;
+            flex: 1;
+            gap: 1em;
+            margin: 5px;
+        }
+
+    .header {
+        display: flex;
+        justify-content: center;
+        padding-block: 0.5em;
+        padding-inline: 1em;
+    }
+
+    .icon {
+        block-size: 1em;
+        display: inline-block;
+        fill: currentColor;
+        inline-size: 1em;
+        vertical-align: middle;
+    }
+
+
+
+    .notification {
+        /*  background-color: #555;
+    */ color: chartreuse;
+        text-decoration: none;
+        padding: 15px 26px;
+        position: relative;
+        /*display: inline-block;*/
+        border-radius: 2px;
+    }
+
+        /*.notification:hover {
+      background: red;
+    }*/
+
+        .notification .badge {
+            position: absolute;
+            top: -8px;
+            right: 25px;
+            padding: 10px 5px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
+        .notification i {
+            font-size: 1.5em;
+        }
+
+
+
+
+
+
+
+
+
+    .card2 {
+        position: relative;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .card > hr {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .card > .list-group:first-child .list-group-item:first-child {
+        border-top-right-radius: 0.25rem;
+        border-top-left-radius: 0.25rem;
+    }
+
+    .card > .list-group:last-child .list-group-item:last-child {
+        border-bottom-left-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+    }
+
+    .card-body {
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        padding: 1.25rem;
+    }
+
+    .card-title {
+        margin-bottom: 0.75rem;
+    }
+
+    .card-subtitle {
+        margin-top: -0.375rem;
+        margin-bottom: 0;
+    }
+
+    .card-text:last-child {
+        margin-bottom: 0;
+    }
+
+    .card-link:hover {
+        text-decoration: none;
+    }
+
+    .card-link + .card-link {
+        margin-right: 1.25rem;
+    }
+
+    .card-header {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 0;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+        color: black;
+    }
+
+        .card-header:first-child {
+            border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+        }
+
+        .card-header + .list-group .list-group-item:first-child {
+            border-top: 0;
+        }
+
+    .card-footer {
+        padding: 0.75rem 1.25rem;
+        background-color: rgba(0, 0, 0, 0.03);
+        border-top: 1px solid rgba(0, 0, 0, 0.125);
+    }
+
+        .card-footer:last-child {
+            border-radius: 0 0 calc(0.25rem - 1px) calc(0.25rem - 1px);
+        }
+
+    .card-header-tabs {
+        margin-left: -0.625rem;
+        margin-bottom: -0.75rem;
+        margin-right: -0.625rem;
+        border-bottom: 0;
+    }
+
+    .card-header-pills {
+        margin-left: -0.625rem;
+        margin-right: -0.625rem;
+    }
+
+    .card-img-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        padding: 1.25rem;
+    }
+
+    .card-img {
+        width: 100%;
+        border-radius: calc(0.25rem - 1px);
+    }
+
+    .card-img-top {
+        width: 100%;
+        border-top-right-radius: calc(0.25rem - 1px);
+        border-top-left-radius: calc(0.25rem - 1px);
+    }
+
+    .card-img-bottom {
+        width: 100%;
+        border-bottom-left-radius: calc(0.25rem - 1px);
+        border-bottom-right-radius: calc(0.25rem - 1px);
+    }
+
+    .card-deck {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+        .card-deck .card {
+            margin-bottom: 15px;
+        }
+
+    @@media (min-width: 576px) {
+        .card-deck {
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+            .card-deck .card {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex: 1 0 0%;
+                flex: 1 0 0%;
+                -ms-flex-direction: column;
+                flex-direction: column;
+                margin-left: 15px;
+                margin-bottom: 0;
+                margin-right: 15px;
+            }
+    }
+
+    .card-group {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+    }
+
+        .card-group > .card {
+            margin-bottom: 15px;
+        }
+
+    @@media (min-width: 576px) {
+        .card-group {
+            -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+        }
+
+            .card-group > .card {
+                -ms-flex: 1 0 0%;
+                flex: 1 0 0%;
+                margin-bottom: 0;
+            }
+
+                .card-group > .card + .card {
+                    margin-right: 0;
+                    border-right: 0;
+                }
+
+                .card-group > .card:not(:last-child) {
+                    border-top-left-radius: 0;
+                    border-bottom-left-radius: 0;
+                }
+
+                    .card-group > .card:not(:last-child) .card-img-top,
+                    .card-group > .card:not(:last-child) .card-header {
+                        border-top-left-radius: 0;
+                    }
+
+                    .card-group > .card:not(:last-child) .card-img-bottom,
+                    .card-group > .card:not(:last-child) .card-footer {
+                        border-bottom-left-radius: 0;
+                    }
+
+                .card-group > .card:not(:first-child) {
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+
+                    .card-group > .card:not(:first-child) .card-img-top,
+                    .card-group > .card:not(:first-child) .card-header {
+                        border-top-right-radius: 0;
+                    }
+
+                    .card-group > .card:not(:first-child) .card-img-bottom,
+                    .card-group > .card:not(:first-child) .card-footer {
+                        border-bottom-right-radius: 0;
+                    }
+    }
+
+    .card-columns .card {
+        margin-bottom: 0.75rem;
+    }
+
+    @@media (min-width: 576px) {
+        .card-columns {
+            -webkit-column-count: 3;
+            -moz-column-count: 3;
+            column-count: 3;
+            -webkit-column-gap: 1.25rem;
+            -moz-column-gap: 1.25rem;
+            column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
+        }
+
+            .card-columns .card {
+                display: inline-block;
+                width: 100%;
+            }
+    }
+
+    .accordion > .card {
+        overflow: hidden;
+    }
+
+        .accordion > .card:not(:first-of-type) .card-header:first-child {
+            border-radius: 0;
+        }
+
+        .accordion > .card:not(:first-of-type):not(:last-of-type) {
+            border-bottom: 0;
+            border-radius: 0;
+        }
+
+        .accordion > .card:first-of-type {
+            border-bottom: 0;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .accordion > .card:last-of-type {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+
+        .accordion > .card .card-header {
+            margin-bottom: -1px;
+        }
+</style>
+@*<link href="~/assets/css/font-awesome.min.css" rel="stylesheet" />*@
+<script src="~/assets/js/jquery-3.4.1.min.js"></script>
+<!-- product section -->
+<div class="tab-content" id="tab">
+    <div id="HomeTab" class="tab-pane fade show product_section layout_padding active" style="margin-top:-10px;">
+        <section class="slider_section ">
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Welcome to our shop
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
+                                        </p>
+                                        <a href="">
+                                            Read More
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="/assets/images/p1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Welcome to our shop
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
+                                        </p>
+                                        <a href="">
+                                            Read More
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="/assets/images/p1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Welcome to our shop
+                                        </h1>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quam velit saepe dolorem deserunt quo quidem ad optio.
+                                        </p>
+                                        <a href="">
+                                            Read More
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="/assets/images/p1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel_btn_box">
+                    <a class="carousel-control-prev" href="#customCarousel1" role="button" data-slide="prev">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#customCarousel1" role="button" data-slide="next">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <div class="container">
+            <div class="heading_container heading_center" style="padding-top:30px;">
+                <h2>
+                    @_localizer.GetLocalizedHtmlString("OurCategory")
+                </h2>
+            </div>
+            <div class="row">
+                @{
+                    if (Model != null && Model.Groups != null)
+                    {
+                        foreach (var item in Model.Groups)
+                        {
+                            <div class="col-sm-6 col-lg-4">
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="GroupImages/@item.GroupImgFile" id="img_@item.id" alt="Card image">
+                                    </div>
+                                    <div class="detail-box text-center">
+                                        <a href="#" class="add_cart_btn" id="grop_@item.id" name="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en"? item.GroupNameEn : item.GroupNameAr)" onclick="group_onClick(@item.id,this)">
+                                            <span>
+                                                @if(System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en")
+                                                {
+                                                    @item.GroupNameEn
+                                                }
+                                                else
+                                                {
+                                                    @item.GroupNameAr;
+                                                }
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+
+            </div>
+            <div class="btn_box">
+                <a href="" class="view_more-link">
+                    View More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- end product section -->
+
+    <div id="ItemsTab" class="tab-pane fade show product_section layout_padding" style="padding-top:100px;">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2 id="departement">
+                    @_localizer.GetLocalizedHtmlString("OurProducts")
+                </h2>
+            </div>
+            <div class="row" id="itemsDiv">
+                @{
+                    if (Model != null && Model.Items != null)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            <div class="card2 bg-light cardimg">
+                                <img class="card-img-top" id="itm_@item.id" src="ItemsImages/@item.itemImgFile" alt="Card image" style="width:100%;height:200px">
+                                <div class="card-body text-center" id="itm">
+                                    @if (@System.Threading.Thread.CurrentThread.CurrentCulture.Name == "en")
+                                    {
+                                        <h4 class="card-title text-center itmName"> @item.itemNameEn </h4>
+                                        <h4 class="card-title text-center itmDesc">@item.itemDescreptionEn </h4>
+                                        <p class="card-text text-center itmPrice" id="price" name="@item.price">ريال @item.price </p>
+                                        <button class="add btn btn-primary" id="@item.id" name="@item.itemNameEn"><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="card-title text-center itmName"> @item.itemNameAr </h4>
+                                        <h4 class="card-title text-center itmDesc">@item.itemDescreptionAr </h4>
+                                        <p class="card-text text-center itmPrice" id="price" name="@item.price">ريال @item.price </p>
+                                        <button class="add btn btn-primary" id="@item.id" name="@item.itemNameAr"><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button>
+                                    }
+
+                                </div>
+                            </div>
+
+                        }
+                    }
+                }
+
+
+            </div>
+            <div class="btn_box">
+                <a href="" class="view_more-link">
+                    View More
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- about section -->
+
+    <div id="AboutTab" class="tab-pane fade show about_section" style="padding-top:150px;">
+        <div class="container-fluid  ">
+            <div class="row">
+                <div class="col-md-5 ml-auto">
+                    <div class="detail-box pr-md-3">
+                        <div class="heading_container">
+                            <h2>
+                                We Provide Best For You
+                            </h2>
+                        </div>
+                        <p>
+                            Totam architecto rem beatae veniam, cum officiis adipisci soluta perspiciatis ipsa, expedita maiores quae accusantium. Animi veniam aperiam, necessitatibus mollitia ipsum id optio ipsa odio ab facilis sit labore officia!
+                            Repellat expedita, deserunt eum soluta rem culpa. Aut, necessitatibus cumque. Voluptas consequuntur vitae aperiam animi sint earum, ex unde cupiditate, molestias dolore quos quas possimus eveniet facilis magnam? Vero, dicta.
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 px-0">
+                    <div class="img-box">
+                        <img src="/assets/images/about-img.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end about section -->
+
+    <div id="InvoiceTab" class="tab-pane fade" style="padding-top:100px;">
+        <div class="page-content container">
+            <div class="alert alert-danger alert-dismissible" id="someHiddenDiv" style="display: none; color:darkred; font-weight:bold; text-align:center;">يجب ادخال الاسم والعنوان ورقم الجوال  <strong>حدث خطأ!</strong>  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>
+            <div class="page-header text-blue-d2">
+                <h1 class="page-title text-secondary-d1 text-center">
+                    @_localizer.GetLocalizedHtmlString("Invoice")
+                </h1>
+            </div>
+
+            <div class="container px-0">
+                <div class="row mt-4">
+                    <div class="col-12 col-lg-10 offset-lg-1">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div>
+                                    @*<span class="text-sm text-grey-m2 align-middle">اسم العميل:</span>*@
+                                    <input type="text" class="form-control" id="custName" placeholder="اسم العميل" required />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    @*<span class="text-sm text-grey-m2 align-middle">رقم الهاتف:</span>*@
+                                    <input type="text" class="form-control" id="tel" placeholder="رقم الهاتف" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    @*<span class="text-sm text-grey-m2 align-middle" required>العنوان:</span>*@
+                                    <input type="text" class="form-control" id="address" placeholder="العنوان" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div>
+                                    @*<span class="text-sm text-grey-m2 align-middle" required>رقم الجوال:</span>*@
+                                    <input type="text" class="form-control" id="mobile" placeholder="رقم الجوال" />
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                        <!-- Editable table -->
+                        <div class="card" style="padding:10px;">
+                            <h3 class="card-header text-center font-weight-bold text-uppercase py-4" style="padding:5px;">
+                                @_localizer.GetLocalizedHtmlString("InvoiceDetails")
+                            </h3>
+                            <div class="card-body">
+                                <div id="table" class="table-editable table-light">
+                                    <table id="tbl" class="table table-bordered table-responsive-md table-striped text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">@_localizer.GetLocalizedHtmlString("ItemCode")</th>
+                                                <th class="text-center">@_localizer.GetLocalizedHtmlString("ItemName")</th>
+                                                <th class="text-center">@_localizer.GetLocalizedHtmlString("Qty")</th>
+                                                <th class="text-center">@_localizer.GetLocalizedHtmlString("Price")</th>
+                                                <th class="text-center">@_localizer.GetLocalizedHtmlString("Total")</th>
+                                                <th class="text-center"></th>
+                                                <th class="text-center"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Editable table -->
+
+                        <div class="row border-b-2 brc-default-l2"></div>
+                        <div class="form-group">
+                            <span class="text-150 text-success-d3 opacity-2" id="">@_localizer.GetLocalizedHtmlString("Total") :</span>
+                            <span class="text-150 text-success-d3 opacity-2" id="">ريال</span><span class="text-150 text-success-d3 opacity-2" id="sum">0</span>
+
+                            <fieldset>
+                                <legend>@_localizer.GetLocalizedHtmlString("PaymmentType")</legend>
+                                <form class="form-inline" action="/action_page.php">
+                                    <div class="form-group">
+                                        <div class="form__radios">
+                                            <div class="form__radio">
+                                                <label for="visa">
+                                                    <input checked id="1" name="payment-method" type="radio" />
+                                                    ماستر كارت
+                                                    <svg class="icon">
+                                                        <img src="~/PaymentImages/icons8-mastercard-48.png" style="min-height:48px;" />
+                                                    </svg>
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form__radios">
+                                                <div class="form__radio">
+                                                    <input checked id="2" name="payment-method" type="radio" />
+                                                    <label for="visa">
+                                                        فيزا
+                                                        <svg class="icon">
+                                                            <img src="~/PaymentImages/icons8-visa-48.png" style="min-height:48px;" />
+                                                        </svg>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form__radios">
+                                                <div class="form__radio">
+                                                    <input checked id="visa" name="payment-method" type="radio" />
+                                                    <label for="visa">
+                                                        مدي
+                                                        <svg class="icon">
+                                                            <img src="~/PaymentImages/mada2.png" style="min-height:48px;" />
+                                                        </svg>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form__radios">
+                                                <div class="form__radio">
+                                                    <input checked id="visa" name="payment-method" type="radio" />
+                                                    <label for="visa">
+                                                        ميزة
+                                                        <svg class="icon">
+
+                                                            <img src="~/PaymentImages/meza.jpg" style="min-height:48px;" />
+                                                        </svg>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
+
+                            <button id="payBtn" class="btn btn-info form-control col-2"><i class="fa fa-money" aria-hidden="true"></i>@_localizer.GetLocalizedHtmlString("PaymmentBtn")</button>
+                            <button class="btn btn-primary form-control col-3" id="shoppBtn"><i class="fa fa-shopping-cart"></i>@_localizer.GetLocalizedHtmlString("ContinueShoppingBtn")</button>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var shopingCar = 0;
+    function activaTab(tab) {
+
+        $('.navbar a[href="#' + tab + '"]').tab('show');
+    };
+    function activaTabfoter(tab) {
+        $('#' + tab).tab('show');
+    };
+
+    function group_onClick(gid,e) {
+        debugger
+        if (gid >= 0) {
+            $.ajax({
+                type: "POST",
+                url: "/Home/getItems",
+                data: { 'gid': gid },
+                contentType: "application/x-www-form-urlencoded",
+                dataType: "json",
+                success: function (r) {
+                    debugger
+                    var userLang = JSON.parse('@Html.Raw(Json.Serialize(ViewData["lan"]))');
+                    var card = "";
+                    $("#itemsDiv").empty();
+                    $.each(r, function (k, v) {
+                        debugger
+                        if (userLang==="en") {
+                            card = '<div class="card2 bg-light cardimg"><img class="card-img-top" id="img_' + v.id + '" src="ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:100%;height:200px">' +
+                                '<div class="card-body text-center" id="itm"><h4 class="card-title text-center itmName">' + v.itemNameEn + '</h4> <h4 class="card-title text-center itmDesc">' + v.itemDescreptionEn + '</h4><p class="card-text text-center itmPrice" id="price" name="' + v.price + '">ريال' + v.price + ' </p>' +
+                                '<button  class="add btn btn-primary" id="' + v.id + '" name="' + v.itemNameEn + '" ><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button></div></div>';
+
+                        } else {
+                            card = '<div class="card2 bg-light cardimg"><img class="card-img-top" id="img_' + v.id + '" src="ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:100%;height:200px">' +
+                                '<div class="card-body text-center" id="itm"><h4 class="card-title text-center itmName">' + v.itemNameAr + '</h4> <h4 class="card-title text-center itmDesc">' + v.itemDescreptionAr + '</h4><p class="card-text text-center itmPrice" id="price" name="' + v.price + '">ريال' + v.price + ' </p>' +
+                                '<button  class="add btn btn-primary" id="' + v.id + '" name="' + v.itemNameAr + '" ><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button></div></div>';
+
+                        }
+
+                        $("#itemsDiv").append(card);
+                        $("#departement").html(e.name);
+                        activaTab('ItemsTab');
+                    });
+
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+        debugger;
+
+        $("#shopingCar").html(shopingCar);
+        $("#invLst").click(function () { activaTab('InvoiceTab'); });
+
+        $("#srchSlect").on("change", function () {
+            debugger
+            var gid = $(this).val();
+            if (gid >= 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "/UserItems/getItems",
+                    data: { 'gid': gid },
+                    contentType: "application/x-www-form-urlencoded",
+                    dataType: "json",
+                    success: function (r) {
+                        var card = "";
+                        $("#cardsDiv").empty();
+                        $.each(r, function (k, v) {
+                            debugger
+                            card = '<div class="card bg-light cardimg"><img class="card-img-top" id="img_' + v.id + '" src="ItemsImages/' + v.itemImgFile + '" alt="Card image" style="width:100%;height:200px">' +
+                                '<div class="card-body text-center" id="itm"><h4 class="card-title text-center itmName">' + v.itemName + '</h4> <h4 class="card-title text-center itmDesc">' + v.itemDescreption + '</h4><p class="card-text text-center itmPrice" id="price" name="' + v.price + '">ريال' + v.price + ' </p>' +
+                                '<button  class="add btn btn-primary" id="' + v.id + '" name="' + v.itemName + '" ><i class="fas fa-cart-plus"></i> إضافة للفاتورة</button></div></div>';
+
+                            $("#cardsDiv").append(card);
+
+                            //alert(v.itemName + " record(s) inserted.");
+                        });
+
+                    }
+                });
+            }
+
+
+        });
+
+        $("#tbl tbody").on('click', '.delBtn', function () {
+            debugger;
+            $(this).closest('tr').remove();
+            calc_total();
+            shopingCar--;
+            $("#shopingCar").html(shopingCar);
+        });
+
+        $("table").on("change", "input", function () {
+            debugger
+            var row = $(this).closest("tr");
+            var qty = parseFloat(row.find(".qty").val());
+            var price = parseFloat(row.find(".price").text());
+            var total = qty * price;
+            row.find(".total").text(isNaN(total) ? "" : total);
+            calc_total();
+        });
+
+
+
+        $("#payBtn").click(function () {
+            debugger
+            var invoice = new Array();
+            var customerName = $("#custName").val();
+            var customerTel = $("#tel").val();
+            var customerMobile = $("#mobile").val();
+            var customerAddress = $("#address").val();
+            var amount = $("#sum").text();
+            var PaymentmethodType = $("input[type='radio'][name='payment-method']:checked").attr('id');
+            if (amount > 0 && customerName != "" && customerMobile != "" && customerAddress != "") {
+                /* $('#someHiddenDiv').hide();*/
+                $('#tbl tbody tr').each(function () {
+                    debugger
+                    var inv = {};
+                    inv.customerName = customerName;
+                    inv.customerTel = customerTel;
+                    inv.customerMobile = customerMobile;
+                    inv.customerAddress = customerAddress;
+                    inv.amount = amount;
+
+                    inv.itemCode = $(this).find(".itmCode").text();
+                    inv.itemName = $(this).find(".itemName").text();
+                    inv.quantity = $(this).find(".qty").val();
+                    inv.price = $(this).find(".price").text();
+
+                    invoice.push(inv);
+                });
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Transactions/payming", /*"/Transactions/Pay",*/
+                    data: { 'invoice': invoice, 'amount': amount, 'PaymentmethodType': PaymentmethodType },
+                    contentType: "application/x-www-form-urlencoded", /*"application/json; charset=utf-8",*/
+                    dataType: "json",
+                    success: function (r) {
+                        debugger
+                        window.location = r.url;
+                        alert(r.url);
+                    }
+                });
+            } else {
+                alert("يجب ادخال اسم العميل والعنوان ورقم الجوال");
+                /*$('#someHiddenDiv').show();*/
+            }
+
+        }
+        );
+
+        $('.nav li a').click(function (e) {
+            $('.nav li.active').removeClass('active');
+            var $parent = $(this).parent();
+            $parent.addClass('active');
+            e.preventDefault();
+        });
+
+    });
+
+    function calc_total() {
+        var sum = 0;
+        $(".total").each(function () {
+            sum += parseFloat($(this).text());
+        });
+        $('#sum').text(sum);
+    }
+    $(document).on("click", ".add", function () {
+        debugger
+
+        shopingCar++;
+        $("#shopingCar").html(shopingCar);
+        var id = $(this).attr("id");
+        var name = $(this).attr("name");
+        var qty = 1;
+        var price = parseInt($(this).closest('div#itm').find('p#price').attr("name")) ;
+        var totl = qty * price;
+        var img = $('#img_' + id).attr('src');
+
+        const newTr = '<tr class="text-center"><td class="pt-3-half itmCode">' + id + '</td><td class="pt-3-half itemName">' + name + '</td> <td class="pt-3-half" contenteditable="true"><input type="text" value="1" class="qty" style="width:80px;text-align:center"></td> <td class="pt-3-half price">' + price + '</td><td class="pt-3-half total">' + totl + '</td><td><img class="img-thumbnail" src=" ' + img + '" alt="Card image" style="width:30%;height:30"></td><td><span class="table-remove"><button type="button" id="delBtn" class="btn btn-danger btn-rounded btn-sm my-0 waves-effect waves-light delBtn">حذف </button> </span> </td></tr > ';
+        $('tbody').append(newTr);
+        calc_total();
+    });
+</script>
+

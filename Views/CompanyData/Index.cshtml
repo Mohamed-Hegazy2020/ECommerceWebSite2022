@@ -1,0 +1,75 @@
+﻿@model MyECommerceWebSite2022.ModelsView.CompanyDataViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = @_localizer.GetLocalizedHtmlString("CompanyDataTitle");
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+
+<h1>
+    @_localizer.GetLocalizedHtmlString("CompanyDataTitle")
+</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">
+        @_localizer.GetLocalizedHtmlString("CreateNew")
+    </a>
+</p>
+<div class="container">
+    <div class="row">
+        <div class="col-2"><label asp-for="CompanyNameAr" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.CompanyNameAr)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="CompanyNameEn" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.CompanyNameEn)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="AddressAr" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.AddressAr)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="AddressEn" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.AddressEn)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="Email" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.Email)</div>
+    </div>
+    @*<div class="row">
+            <div class="col-2"><label asp-for="LogoImage" class="control-label"></label></div>
+            <div class="col-10"> @Html.DisplayFor(modelItem => Model.LogoImage)</div>
+        </div>*@
+    <div class="row">
+        <div class="col-2"><label asp-for="Phone" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.Phone)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="Mobile" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.Mobile)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="Fax" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.Fax)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="FaceBookLink" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.FaceBookLink)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="TwitterLink" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.TwitterLink)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="InstgramLink" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.InstgramLink)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="LinkedinLink" class="control-label"></label></div>
+        <div class="col-10"> @Html.DisplayFor(modelItem => Model.LinkedinLink)</div>
+    </div>
+    <div class="row">
+        <div class="col-2"><label asp-for="LogoImage" class="control-label"></label></div>
+        <img src="~/GroupImages/@Model.LogoImage" style="height: 60px; width: 60px;" class="img-thumbnail" />
+    </div>
+</div>

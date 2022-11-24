@@ -1,0 +1,493 @@
+﻿@model MyECommerceWebSite2022.ModelsView.AdminPanelViewModel
+@inject MyECommerceWebSite2022.Resources.LocalizationService _localizer
+
+@{
+    ViewData["Title"] = "Privacy Policy";
+    Layout = "~/Views/Shared/_AdminLayout2.cshtml";
+}
+<style>
+    .card {
+        text-align: center;
+        align-items: center;
+    }
+</style>
+<link href="~/bootstrap-5.1.3/css/bootstrap5icons.css" rel="stylesheet" />
+@*<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">*@
+
+
+<div class="row">
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-list-check" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">كل الطلبات</h5>
+                <h6  class="card-text" id="allOrders" style="color:darkorange;">@Model.allOrders</h6>
+                <a asp-controller="Invoices" asp-action="SearchInvoices" asp-route-id="0" class="btn btn-primary">عرض التفاصيل</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-cart-check" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">طلبات تم تسليمها</h5>
+                <h6 id="donOrders" class="card-text" style="color:limegreen;">@Model.donOrders</h6>
+                <a asp-controller="Invoices" asp-action="SearchInvoices" asp-route-id="1" class="btn btn-primary">عرض التفاصيل</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-cart-dash" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">طلبات لم يتم تسليمها</h5>
+                <h6 id="notDonOrders" class="card-text" style="color:red;">@Model.notDonOrders</h6>
+                <a asp-controller="Invoices" asp-action="SearchInvoices" asp-route-id="2" class="btn btn-primary">عرض التفاصيل</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-cash-coin" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">طلبات تم دفعها</h5>
+                <h6 id="paidOrders" class="card-text" style="color:yellowgreen;">@Model.paidOrders</h6>
+                <a asp-controller="Invoices" asp-action="SearchInvoices" asp-route-id="3" class="btn btn-primary">عرض التفاصيل</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-cash" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">طلبات لم يتم دفعها</h5>
+                <h6 id="notPaidOrders" class="card-text">@Model.notPaidOrders</h6>
+                <a asp-controller="Invoices" asp-action="SearchInvoices" asp-route-id="4" class="btn btn-primary">عرض التفاصيل</a>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-4 p-1">
+        <div class="card">
+            <i class="bi bi-activity" style="font-size: 2rem; color: cornflowerblue;"></i>
+            <div class="card-body">
+                <h5 class="card-title">منتجات نفذت الكمية</h5>
+                <h6 id="finshedItems" class="card-text" style="color:firebrick;">@Model.finshedItems</h6>
+                <a asp-controller="Items" asp-action="Index" asp-route-searchTyp="5" class="btn btn-primary">عرض التفاصيل</a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@*
+    <div class="row pt-4">
+        <div class="row">
+            <h4 class="card-title">العملاء</h4>
+        </div>
+        <div class="col-12">
+            @if (Model.customersViewModel.Count > 0)
+            {
+                <table class="table table-striped table-responsive">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.customersViewModel.FirstOrDefault().customerName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.customersViewModel.FirstOrDefault().customerAddress)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.customersViewModel.FirstOrDefault().customerMobile)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.customersViewModel.FirstOrDefault().customerTel)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.customersViewModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.customerName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.customerAddress)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.customerMobile)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.customerTel)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <div class="row pt-4">
+        <div class="row">
+            <h4 class="card-title">المنتجات</h4>
+        </div>
+        <div class="col-12">
+            @if (Model.ItemsViewModel.Count > 0)
+            {
+                <table class="table table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().itemNameAr)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().itemNameEn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().itemDescreptionAr)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().itemDescreptionEn)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().groupId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().unitId)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().price)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().quantity)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ItemsViewModel.FirstOrDefault().itemImgFile)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ItemsViewModel)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.itemNameAr)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.itemNameEn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.itemDescreptionAr)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.itemDescreptionEn)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.groupName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.unitName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.price)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.quantity)
+                                </td>
+                                <td>
+                                    <img src="~/ItemsImages/@item.itemImgFile" style="height: 60px; width: 60px;" class="img-thumbnail" />
+
+                                </td>
+                                <td>
+                                    @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Edit"), "Edit", "Items", new { id = item.id })
+                                  @Html.ActionLink(@_localizer.GetLocalizedHtmlString("Delete"), "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+        </div>
+
+
+    </div>
+*@
+
+<div class="row pt-4">
+    <div class="col-6">
+        <canvas id="myChartSalesOverMonthes"></canvas>
+    </div>
+    <div class="col-6">
+        <canvas id="myChartSalesOverYears"></canvas>
+    </div>
+</div>
+
+<div class="row pt-5">
+
+    <div class="col-6">
+        <div>مبيعات المنتجات</div>
+        <canvas id="myPieChartForProductsSales"></canvas>
+    </div>
+
+    <div class="col-6">
+        <div>مبيعات المنتجات</div>
+        <canvas id="myDoughnutChartForProductsSales"></canvas>
+    </div>
+</div>
+
+
+<script src="~/UserAssets/js/jquery-1.11.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+<script>
+    var connection = new signalR.HubConnectionBuilder().withUrl("/notfyHub").build();
+    connection.on("updateNotfysClient", function (p) {      
+        $("#allOrders").html(p.allOrders);
+        $("#donOrders").html(p.donOrders);
+        $("#notDonOrders").html(p.notDonOrders);       
+        $("#paidOrders").html(p.paidOrders);
+        $("#notPaidOrders").html(p.notPaidOrders);
+       
+        $("#finshedItems").html(p.finshedItems);
+       
+    });
+
+    $(document).ready(function () {
+        connection.start();
+
+
+        var labels = [];
+        var data = [];
+
+        var labels2 = [];
+        var data2 = [];
+
+        var PiexValues = [];
+        var PieyValues = [];
+
+        function SalesOverMonthesChart() {
+
+            var ctx = document.getElementById('myChartSalesOverMonthes').getContext("2d");
+            var myChart2020 = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        barPercentage: 1,
+                        label: 'إجمالي المبيعات علي مستوي الشهور',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 11, 132, 0.2)',
+                            'rgba(54, 22, 235, 0.2)',
+                            'rgba(255, 100, 86, 0.2)',
+                            'rgba(75, 50, 192, 0.2)',
+                            'rgba(153, 30, 255, 0.2)',
+                            'rgba(255, 159, 50, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        },
+                        x: {
+                            grid: {
+                                offset: true
+                            }
+                        }
+                    }
+                }
+            })
+        }
+
+
+        function SalesOverYearsChart() {
+            var ctx = document.getElementById('myChartSalesOverYears').getContext("2d");
+            var myChart2020 = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels2,
+                    datasets: [{
+                        label: 'إجمالي المبيعات علي مستوي السنين',
+                        data: data2,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 11, 132, 0.2)',
+                            'rgba(54, 22, 235, 0.2)',
+                            'rgba(255, 100, 86, 0.2)',
+                            'rgba(75, 50, 192, 0.2)',
+                            'rgba(153, 30, 255, 0.2)',
+                            'rgba(255, 159, 50, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)',
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            })
+        }
+
+
+        function PieChartForProductsSales() {
+            var PiebarColors = ["AliceBlue", "Aqua", "AntiqueWhite", "Blue", "CadetBlue", "Chartreuse", "Crimson", "CornflowerBlue", "Cyan", "Coral",
+                "DarkBlue", "DarkOliveGreen", "DarkOrange", "DarkSlateGray", "DarkCyan", "YellowGreen", "Yellow", "Wheat", "Violet", "Turquoise",
+                "Tomato", "Thistle", "Teal", "Tan", "SteelBlue", "SpringGreen", "SlateGrey", "SkyBlue", "Sienna", "SandyBrown"
+            ];
+
+            new Chart("myPieChartForProductsSales", {
+                type: "pie",
+                data: {
+                    labels: PiexValues,
+                    datasets: [{
+                        backgroundColor: PiebarColors,
+                        data: PieyValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "World Wide Wine Production 2018"
+                    }
+                }
+            });
+
+
+            new Chart("myDoughnutChartForProductsSales", {
+                type: "doughnut",
+                data: {
+                    labels: PiexValues,
+                    datasets: [{
+                        backgroundColor: PiebarColors,
+                        data: PieyValues
+                    }]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: "World Wide Wine Production 2018"
+                    }
+                }
+            });
+
+
+        }
+
+
+
+
+        $.ajax({
+            type: "get",
+            url: "/Home/getSalesOverMonthes",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (r) {
+                debugger;
+                $.each(r, function (k, v) {
+                    debugger;
+                    labels.push(v.monthName)
+                    data.push(v.amount)
+                });
+
+                SalesOverMonthesChart();
+            }
+        });
+
+
+        $.ajax({
+            type: "get",
+            url: "/Home/getSalesOverYears",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (r) {
+                debugger;
+                $.each(r, function (k, v) {
+                    debugger;
+                    labels2.push(v.monthName)
+                    data2.push(v.amount)
+                });
+                SalesOverYearsChart();
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: "/Home/getProductsSales",
+            dataType: "json",
+            contentType: "application/json",
+            success: function (r) {
+                $.each(r, function (k, v) {
+                    debugger;
+                    PiexValues.push(v.monthName)
+                    PieyValues.push(v.amount)
+
+                });
+                PieChartForProductsSales();
+            }
+        });
+
+
+
+    });
+
+
+
+</script>
